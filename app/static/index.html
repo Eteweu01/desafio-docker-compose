@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edivaldo Francisco - API FastAPI + PostgreSQL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #00bfa5;
+      --bg-light: #e0f2f1;
+      --bg-card-light: rgba(255,255,255,0.65);
+      --text-light: #1f2937;
+      --shadow-light: rgba(0,0,0,0.08);
+
+      --bg-dark: #121212;
+      --bg-card-dark: rgba(255,255,255,0.05);
+      --text-dark: #f3f4f6;
+      --shadow-dark: rgba(0,0,0,0.4);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      transition: all 0.5s ease;
+    }
+
+    .dark-mode {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: var(--text-dark);
+    }
+
+    .card {
+      position: relative;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-radius: 25px;
+      background: var(--bg-card-light);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 10px 40px var(--shadow-light);
+      max-width: 400px;
+      width: 90%;
+      transition: all 0.5s ease;
+    }
+
+    .dark-mode .card {
+      background: var(--bg-card-dark);
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 10px 40px var(--shadow-dark);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+    }
+
+    img.avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      transition: all 0.5s ease;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin: 0.5rem 0 0.5rem;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .description {
+      font-size: 1rem;
+      color: #6b7280;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .dark-mode .description {
+      color: #9ca3af;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .links a {
+      text-decoration: none;
+      background: linear-gradient(90deg, var(--accent) 0%, #38a169 100%);
+      color: white;
+      padding: 0.85rem 1.5rem;
+      border-radius: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      transition: all 0.3s ease;
+    }
+
+    .links a:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* ====== Redes Sociais ====== */
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .socials a:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: scale(1.2);
+    }
+
+    .dark-mode .socials a {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .dark-mode .socials a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .socials img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    button {
+      margin-top: 2.5rem;
+      background: none;
+      border: 2px solid var(--accent);
+      border-radius: 50px;
+      padding: 0.7rem 1.6rem;
+      color: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--accent);
+      color: white;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.5rem; }
+      img.avatar { width: 120px; height: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img class="avatar" src="https://i.redd.it/ditkdljjjlhe1.jpeg" alt="Avatar de Edivaldo">
+    <h1>Edivaldo Francisco</h1>
+    <p class="description">API FastAPI rodando com PostgreSQL via Docker Compose. <i class="fa-solid fa-rocket"></i></p>
+
+    <div class="links">
+      <a href="http://localhost:8000/docs" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-code"></i> Documentação Swagger</a>
+      <a href="http://localhost:8000/db-check" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-database"></i> Testar Conexão com Banco</a>
+      <a href="https://github.com/Eteweu01/desafio-docker-compose" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub Repositório</a>
+    </div>
+
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/edivaldo-francisco-413780383/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn">
+      </a>
+      <a href="https://www.tiktok.com/@ttem57" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <img src="https://i.pinimg.com/originals/f2/bc/fb/f2bcfb0a80d1659425e386837a452c23.png" alt="TikTok">
+      </a>
+      <a href="https://www.roblox.com/pt/users/128112168/profile" target="_blank" rel="noopener noreferrer" aria-label="Roblox">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Roblox_%282025%29_%28App_Icon%29.svg/1200px-Roblox_%282025%29_%28App_Icon%29.svg.png" alt="Roblox">
+      </a>
+      <a href="https://www.instagram.com/eteweu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/1936/1936319.png" alt="Instagram">
+      </a>
+      <a href="https://github.com/Eteweu01" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
+      </a>
+    </div>
+
+    <button onclick="toggleMode()">🌙 Alternar Tema</button>
+    <footer>© 2025 - Desenvolvido por Edivaldo Francisco</footer>
+  </div>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    }
+
+    window.onload = function() {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    }
+  </script>
+</body>
+</html>
